@@ -1,6 +1,7 @@
 
 const User = require('../models/user');
 
+
 module.exports.createUser = async (req, res) => {
 
     try {
@@ -30,3 +31,37 @@ module.exports.createUser = async (req, res) => {
     }
     
 };
+
+
+module.exports.loginUser = async (req, res) => {
+
+    try {
+        const {email, password} = req.body;
+        
+        const findUser = await User.findOne({email: email});
+
+        // if user exist then validate user
+        if(findUser) {
+            if(await findUser.checkPassword(password)) {
+                return res.status(201).json({
+                    findUser,
+                    message: "User Logged In"
+                });
+            } else {
+                return res.status(403).json({
+                    message: "Invalid credentials"
+                });
+            }
+        } 
+        
+        return res.status(404).json({
+            message: "User not found"
+        });
+    } catch(err) {
+        console.log("Error while login user ", err);
+        return res.status(500).json({
+            message: "Internal server error",
+        });
+    }
+    
+}
