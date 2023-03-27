@@ -23,7 +23,7 @@ module.exports.createUser = async (req, res) => {
             message: "User created successfully"
         });
     } catch(err) {
-        console.log("Error while creating sserver = " + err);
+        console.log("Error while creating user = " + err);
         return res.status(500).json({
             message: "Internal server error"
         });
