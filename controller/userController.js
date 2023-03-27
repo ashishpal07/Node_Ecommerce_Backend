@@ -1,4 +1,5 @@
 
+const { generatToken } = require('../config/jwtToken');
 const User = require('../models/user');
 
 
@@ -44,7 +45,12 @@ module.exports.loginUser = async (req, res) => {
         if(findUser) {
             if(await findUser.checkPassword(password)) {
                 return res.status(201).json({
-                    findUser,
+                    _id: findUser?._id,
+                    firstName: findUser?.firstName,
+                    lastName: findUser?.lastName,
+                    email: findUser?.email,
+                    mobile: findUser?.mobile,
+                    token: generatToken(findUser?._id),
                     message: "User Logged In"
                 });
             } else {
@@ -65,3 +71,5 @@ module.exports.loginUser = async (req, res) => {
     }
     
 }
+
+
