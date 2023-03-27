@@ -15,11 +15,18 @@ module.exports.authMiddleware = async (req, res, next) => {
             // console.log(decode);
             const user = await User.findById(decode?.id);
             req.user = user;
+            return res.status(200).json({
+                user,
+                message: "user is authorize" 
+            });
             next();
         }
+
+        
     } catch(err) {
+        console.log("Error while authenticate user ", err);
         return res.status(500).json({
-            message: "Internal server error"
-        })
+            message: "Internal server error user is not authorised" 
+        });
     }
 }
