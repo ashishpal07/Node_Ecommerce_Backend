@@ -7,7 +7,7 @@ module.exports.createUser = async (req, res) => {
         const email = req.body.email;
 
         const findUser = await User.findOne({email: email});
-        console.log("find user = ", findUser);
+        // console.log("find user = ", findUser);
 
         // if user exist then throw already exist else create user
         if(findUser) {
@@ -24,8 +24,9 @@ module.exports.createUser = async (req, res) => {
         });
     } catch(err) {
         console.log("Error while creating sserver = " + err);
-        return;
+        return res.status(500).json({
+            message: "Internal server error"
+        });
     }
     
-
-}
+};

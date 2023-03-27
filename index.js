@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/user', require('./routes/user'));
 
-
 app.listen(PORT, (err) => {
     if(err) {
         console.log("Error while running server");
