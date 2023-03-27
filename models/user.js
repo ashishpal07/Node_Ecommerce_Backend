@@ -29,8 +29,26 @@ var userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "user"
-    }
+    },
+    cart: {
+        type: Array,
+        default: []
+    },
+    address: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Address"
+        }
+    ],
+    wishList: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ]
 
+},{
+    timestamps: true
 });
 
 userSchema.pre("save", async function () {
