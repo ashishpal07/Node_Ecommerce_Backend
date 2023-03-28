@@ -20,13 +20,15 @@ module.exports.authMiddleware = async (req, res, next) => {
                 message: "user is authorize" 
             });
             next();
+        } else {
+            return res.status(401).json({
+                message: " Unauthorized token expire please login again"
+            });
         }
-
-        
     } catch(err) {
         console.log("Error while authenticate user ", err);
         return res.status(500).json({
-            message: "Internal server error user is not authorised" 
+            message: "Internam server error authentication" 
         });
     }
 }
